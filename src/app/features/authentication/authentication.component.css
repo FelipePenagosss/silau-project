@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.input-box input:valid ~ label,
+.input-box input:focus ~ label{
+    font-weight: bold;
+    transform: translateY(-80%);
+    font-size: 1rem;
+}
+
+.form{
+    height: 55vh;
+}

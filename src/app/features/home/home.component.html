@@ -1,0 +1,369 @@
+<!-- home.component.html -->
+<main class="bg-gradient-to-b from-white to-gray-50">
+
+
+    <!-- Hero Section - Nuestra Fundación -->
+
+
+  <!-- About Section -->
+  <section class="py-16 px-6">
+    <div class="max-w-4xl mx-auto">
+      <div class="bg-white rounded-2xl shadow-xl p-8 md:p-12 border-t-4 border-blue-600">
+        <div class="flex items-center justify-center mb-6">
+          <svg class="w-12 h-12 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/>
+          </svg>
+        </div>
+        <h2 class="text-3xl font-bold text-center text-gray-800 mb-6">
+          Nuestra Fundación
+        </h2>
+        <p class="text-lg text-gray-700 leading-relaxed text-center">
+          Fundación Tazul, con presencia destacada en Boyacá, es una organización comprometida con el desarrollo deportivo y social de la región. Nos especializamos en promover actividades deportivas, gestionar eventos comunitarios y fortalecer el talento atlético local. A través de nuestra plataforma digital integral, ofrecemos una vitrina deportiva innovadora, gestión eficiente de inventarios y difusión dinámica de eventos. Fundación Tazul se distingue por su compromiso con la excelencia, la transparencia y el impulso del deporte como motor de transformación social en nuestra comunidad.
+        </p>
+      </div>
+    </div>
+  </section>
+<app-slider></app-slider>
+  <!-- Services Section -->
+  <section class="py-20 px-6 bg-gradient-to-b from-gray-50 to-white">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+          ¿Qué Ofrecemos?
+        </h2>
+        <div class="w-24 h-1 bg-blue-600 mx-auto rounded-full"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Service 1 -->
+        <div class="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden">
+          <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-yellow-400 to-orange-500"></div>
+          <div class="p-8 text-center">
+            <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-2xl mb-6 group-hover:scale-110 transition-transform">
+              <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">
+              Vitrina Deportiva
+            </h3>
+            <p class="text-gray-600 leading-relaxed">
+              Espacio digital para visibilizar logros, atletas destacados y actividades deportivas de nuestra región.
+            </p>
+          </div>
+        </div>
+
+        <!-- Service 2 -->
+        <div class="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden">
+          <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-blue-500 to-indigo-600"></div>
+          <div class="p-8 text-center">
+            <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-2xl mb-6 group-hover:scale-110 transition-transform">
+              <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"/>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">
+              Gestión de Inventarios
+            </h3>
+            <p class="text-gray-600 leading-relaxed">
+              Sistema eficiente para administrar recursos, equipamiento deportivo y materiales de la fundación.
+            </p>
+          </div>
+        </div>
+
+        <!-- Service 3 -->
+        <div class="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden">
+          <div class="absolute top-0 left-0 right-0 h-2 bg-gradient-to-r from-green-500 to-emerald-600"></div>
+          <div class="p-8 text-center">
+            <div class="inline-flex items-center justify-center w-20 h-20 bg-gradient-to-br from-green-500 to-emerald-600 rounded-2xl mb-6 group-hover:scale-110 transition-transform">
+              <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-800 mb-4">
+              Difusión de Eventos
+            </h3>
+            <p class="text-gray-600 leading-relaxed">
+              Plataforma centralizada para comunicar y gestionar eventos deportivos y actividades comunitarias.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+
+<!-- Products Section -->
+<section class="py-20 px-6 bg-gray-50">
+  <div class="max-w-7xl mx-auto">
+    <div class="text-center mb-12">
+      <h2 class="text-4xl font-bold text-gray-800 mb-4">
+        Productos Destacados
+      </h2>
+      <p class="text-gray-600 text-lg">
+        Descubre nuestra selección de productos deportivos de alta calidad
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+      <!-- Producto 1 -->
+      <div class="group bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden transform hover:-translate-y-2">
+        <div class="h-48 overflow-hidden bg-gray-100">
+          <img
+            src="../../../assets/images/products/img-1.jpeg"
+            alt="Balón de Fútbol"
+            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+          />
+        </div>
+        <div class="p-4">
+          <h3 class="font-bold text-gray-800 mb-2 text-sm">Reloj de Ajedrez</h3>
+          <div class="flex items-center justify-between">
+            <p class="text-blue-600 font-bold text-lg">$110.000</p>
+            <button class="text-blue-600 hover:text-blue-800 transition-colors" routerLink="/products">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 2 -->
+      <div class="group bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden transform hover:-translate-y-2">
+        <div class="h-48 overflow-hidden bg-gray-100">
+          <img
+            src="../../../assets/images/products/img-6.jpeg"
+            alt="Zapatillas Running"
+            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+          />
+        </div>
+        <div class="p-4">
+          <h3 class="font-bold text-gray-800 mb-2 text-sm">Medalla C3 Plata</h3>
+          <div class="flex items-center justify-between">
+            <p class="text-blue-600 font-bold text-lg">$8.000</p>
+            <button class="text-blue-600 hover:text-blue-800 transition-colors" routerLink="/products">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 3 -->
+      <div class="group bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden transform hover:-translate-y-2">
+        <div class="h-48 overflow-hidden bg-gray-100">
+          <img
+            src="../../../assets/images/products/img-5.jpeg"
+            alt="Bicicleta Montaña"
+            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+          />
+        </div>
+        <div class="p-4">
+          <h3 class="font-bold text-gray-800 mb-2 text-sm">Medalla C3 Oro</h3>
+          <div class="flex items-center justify-between">
+            <p class="text-blue-600 font-bold text-lg">$8.000</p>
+            <button class="text-blue-600 hover:text-blue-800 transition-colors" routerLink="/products">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 4 -->
+      <div class="group bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden transform hover:-translate-y-2">
+        <div class="h-48 overflow-hidden bg-gray-100">
+          <img
+            src="../../../assets/images/products/img-10.jpeg"
+            alt="Guantes Portero"
+            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+          />
+        </div>
+        <div class="p-4">
+          <h3 class="font-bold text-gray-800 mb-2 text-sm">Piezas de ajedrez</h3>
+          <div class="flex items-center justify-between">
+            <p class="text-blue-600 font-bold text-lg">$19.000</p>
+           <button class="text-blue-600 hover:text-blue-800 transition-colors" routerLink="/products">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 5 -->
+      <div class="group bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden transform hover:-translate-y-2">
+        <div class="h-48 overflow-hidden bg-gray-100">
+          <img
+            src="../../../assets/images/products/img-11.jpeg"
+            alt="Camiseta Deportiva"
+            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+          />
+        </div>
+        <div class="p-4">
+          <h3 class="font-bold text-gray-800 mb-2 text-sm">Medallas</h3>
+          <div class="flex items-center justify-between">
+            <p class="text-blue-600 font-bold text-lg">$20.000</p>
+            <button class="text-blue-600 hover:text-blue-800 transition-colors" routerLink="/products">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Producto 6 -->
+      <div class="group bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden transform hover:-translate-y-2">
+        <div class="h-48 overflow-hidden bg-gray-100">
+          <img
+            src="../../../assets/images/products/img-12.jpeg"
+            alt="Mancuernas Set"
+            class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+          />
+        </div>
+        <div class="p-4">
+          <h3 class="font-bold text-gray-800 mb-2 text-sm">Set de Medallas modelos</h3>
+          <div class="flex items-center justify-between">
+           <p class="text-blue-600 font-bold text-lg">$55.000</p>
+            <button class="text-blue-600 hover:text-blue-800 transition-colors" routerLink="/products">
+              <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Botón Ver Más -->
+    <div class="text-center mt-12">
+      <button class="bg-blue-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-blue-700 transition-colors shadow-lg hover:shadow-xl transform hover:scale-105" routerLink="/products">
+        Ver Todos los Productos
+      </button>
+    </div>
+  </div>
+</section>
+
+  <!-- Testimonials Section -->
+  <section class="py-20 px-6 bg-white">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+          Lo Que Dicen de Nosotros
+        </h2>
+        <div class="w-24 h-1 bg-blue-600 mx-auto rounded-full"></div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <!-- Testimonial 1 -->
+        <div class="relative bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300">
+          <div class="absolute -top-4 -left-4 w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+            </svg>
+          </div>
+          <div class="mb-6">
+            <svg class="w-8 h-8 text-blue-300" fill="currentColor" viewBox="0 0 32 32">
+              <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
+            </svg>
+          </div>
+          <p class="text-gray-700 italic mb-6 text-lg leading-relaxed">
+            "Fundación Tazul transformó mi vida deportiva. Gracias a su apoyo, logré competir a nivel nacional."
+          </p>
+          <div class="flex items-center">
+            <div class="w-12 h-12 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
+              M
+            </div>
+            <div>
+              <p class="font-bold text-gray-800">María González</p>
+              <p class="text-gray-600 text-sm">Atleta</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 2 -->
+        <div class="relative bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300">
+          <div class="absolute -top-4 -left-4 w-12 h-12 bg-purple-600 rounded-full flex items-center justify-center">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+            </svg>
+          </div>
+          <div class="mb-6">
+            <svg class="w-8 h-8 text-purple-300" fill="currentColor" viewBox="0 0 32 32">
+              <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
+            </svg>
+          </div>
+          <p class="text-gray-700 italic mb-6 text-lg leading-relaxed">
+            "Excelente organización de eventos. La plataforma digital facilita enormemente la gestión."
+          </p>
+          <div class="flex items-center">
+            <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
+              C
+            </div>
+            <div>
+              <p class="font-bold text-gray-800">Carlos Ruiz</p>
+              <p class="text-gray-600 text-sm">Entrenador</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Testimonial 3 -->
+        <div class="relative bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-8 shadow-lg hover:shadow-xl transition-all duration-300">
+          <div class="absolute -top-4 -left-4 w-12 h-12 bg-green-600 rounded-full flex items-center justify-center">
+            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z"/>
+            </svg>
+          </div>
+          <div class="mb-6">
+            <svg class ="w-8 h-8 text-green-300" fill="currentColor" viewBox="0 0 32 32">
+              <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
+            </svg>
+          </div>
+          <p class="text-gray-700 italic mb-6 text-lg leading-relaxed">
+            "Una fundación comprometida con el desarrollo deportivo de nuestra región."
+          </p>
+          <div class="flex items-center">
+            <div class="w-12 h-12 bg-gradient-to-br from-green-500 to-emerald-600 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
+              A
+            </div>
+            <div>
+              <p class="font-bold text-gray-800">Ana Pérez</p>
+              <p class="text-gray-600 text-sm">Patrocinadora</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="relative py-20 px-6 overflow-hidden">
+    <div class="absolute inset-0 bg-gradient-to-r from-blue-600 via-indigo-700 to-purple-800"></div>
+    <div class="absolute inset-0 opacity-10">
+      <div class="absolute transform rotate-45 -top-20 -right-20 w-96 h-96 bg-white rounded-full"></div>
+      <div class="absolute transform -rotate-45 -bottom-20 -left-20 w-96 h-96 bg-white rounded-full"></div>
+    </div>
+
+    <div class="relative max-w-4xl mx-auto text-center text-white">
+      <h2 class="text-4xl md:text-5xl font-bold mb-6">
+        ¿Quieres Ser Parte de Fundación Tazul?
+      </h2>
+      <p class="text-xl md:text-2xl mb-10 text-blue-100">
+        Únete a nuestra comunidad deportiva y contribuye al desarrollo atlético de Boyacá
+      </p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <button class="bg-white text-blue-700 px-10 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-all transform hover:scale-105 shadow-2xl" routerLink="/contact">
+          Contáctanos Ahora
+        </button>
+        <button class="border-3 border-white text-white px-10 py-4 rounded-full font-bold text-lg hover:bg-white hover:text-blue-700 transition-all transform hover:scale-105" routerLink="/enterprise">
+          Explorar Más
+        </button>
+      </div>
+    </div>
+  </section>
+</main>

@@ -1,0 +1,29 @@
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+input:read-only, 
+input:disabled {
+    background-color: #f3f4f6;
+    cursor: not-allowed;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #e5e7eb;
+    padding: 0.5rem;
+}
+
+th {
+    background-color: #f9fafb;
+    font-weight: 500;
+}

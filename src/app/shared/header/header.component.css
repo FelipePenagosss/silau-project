@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Línea animada en hover — ahora AZUL */
+.link::after {
+    content: "";
+    position: absolute;
+    background-color: #0056D2; /* 🟦 Azul del logo */
+    top: 100%;
+    left: 0;
+    height: 0.15rem;
+    width: 100%;
+    opacity: 0;
+    transform: translateX(-100%);
+    transition: all 0.3s ease-in-out;
+}
+
+.link:hover::after {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Línea cuando el link está activo — también AZUL */
+.active::before {
+    content: "";
+    position: absolute;
+    background-color: #0056D2; /* 🟦 Azul del logo */
+    top: 100%;
+    left: 0;
+    height: 0.15rem;
+    width: 100%;
+}

@@ -1,0 +1,60 @@
+<main class="p-5">
+    <h2 class="text-neutral-700 font-bold text-2xl uppercase">Líneas de Producto</h2>
+
+    <button (click)="openModal()" class="bg-orange-500 text-white px-4 py-2 rounded mt-4">
+    + Agregar Línea
+    </button>
+
+    <section class="bg-white px-2 py-4 mt-4">
+    <div class="overflow-x-auto">
+        <table class="w-full">
+        <thead>
+            <tr class="border-b">
+            <th class="p-2 text-left">ID</th>
+            <th class="p-2 text-left">Nombre</th>
+            <th class="p-2 text-left">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let linea of lineas" class="border-b">
+            <td class="p-2">{{linea.idLineaProducto}}</td>
+            <td class="p-2">{{linea.nombreLinea}}</td>
+            <td class="p-2">
+                <button class="text-blue-600 mr-2" (click)="openModal(linea)">
+                <i class="fas fa-edit"></i>
+                </button>
+                <button class="text-red-600" (click)="deleteLinea(linea.idLineaProducto)">
+                <i class="fas fa-trash"></i>
+                </button>
+            </td>
+            </tr>
+        </tbody>
+        </table>
+    </div>
+    </section>
+</main>
+
+<!-- Modal -->
+<div class="modal-container fixed z-[888] w-full h-screen top-0 left-0 flex justify-center items-center opacity-0 invisible" #modalContainer>
+    <div class="modal p-4 relative w-1/2 bg-white rounded-xl transition-transform duration-1000 ease-in-out translate-y-0 overflow-y-auto modal-close" #modal>
+    <h2 class="text-neutral-700 text-2xl mb-6">
+        {{ isEditing ? 'Editar' : 'Agregar' }} Línea de Producto
+    </h2>
+    
+    <form [formGroup]="lineaForm" (ngSubmit)="onSubmit()" class="space-y-6">
+        <div class="form-group">
+        <label class="block mb-2">Nombre de la línea<span class="text-red-500">*</span></label>
+        <input type="text" formControlName="nombreLinea" class="w-full p-2 border rounded">
+        </div>
+
+        <div class="flex justify-end gap-4">
+        <button type="button" class="px-4 py-2 bg-gray-500 text-white rounded" (click)="closeModal()">
+            Cancelar
+        </button>
+        <button type="submit" class="px-4 py-2 bg-orange-500 text-white rounded">
+            {{ isEditing ? 'Guardar cambios' : 'Guardar' }}
+        </button>
+        </div>
+    </form>
+    </div>
+</div>

@@ -1,0 +1,97 @@
+<form action="" class="container max-w-4xl mx-auto mt-10 mb-20">
+    <!-- Encabezado mejorado -->
+    <div class="text-center mb-12">
+        <h2 class="text-5xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-700 mb-3">
+            Contacto
+        </h2>
+        <div class="w-24 h-1 bg-gradient-to-r from-blue-600 to-indigo-600 mx-auto rounded-full"></div>
+        <p class="text-gray-600 mt-4 text-lg">Estamos aquí para ayudarte. Déjanos tu mensaje.</p>
+    </div>
+
+    <!-- Campos de nombre y email -->
+    <div class="flex gap-10 justify-between mt-10 text-xl sm:flex-row flex-col">
+        <div class="relative flex-1 input-box group">
+            <input type="text" name="name" 
+                class="outline-none border-2 border-gray-300 p-3 rounded-xl bg-white w-full 
+                focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-300
+                hover:border-gray-400 shadow-sm" required>
+            <label for="" class="duration-300 text-gray-500 absolute top-0 left-0 p-3 pointer-events-none
+                group-focus-within:text-blue-600 group-focus-within:text-sm group-focus-within:-translate-y-7 
+                group-focus-within:bg-white group-focus-within:px-2">
+                Nombre
+            </label>
+        </div>
+        <div class="relative flex-1 input-box group">
+            <input type="email" name="email" 
+                class="outline-none border-2 border-gray-300 p-3 rounded-xl bg-white w-full 
+                focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-300
+                hover:border-gray-400 shadow-sm" required>
+            <label for="" class="duration-300 text-gray-500 absolute top-0 left-0 p-3 pointer-events-none
+                group-focus-within:text-blue-600 group-focus-within:text-sm group-focus-within:-translate-y-7 
+                group-focus-within:bg-white group-focus-within:px-2">
+                Correo Electrónico
+            </label>
+        </div>
+    </div>
+
+    <!-- Campo de teléfono -->
+    <div class="relative mt-10 text-xl input-box group">
+        <input type="number" name="phone" 
+            class="outline-none border-2 border-gray-300 p-3 rounded-xl bg-white w-full 
+            focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-300
+            hover:border-gray-400 shadow-sm" required>
+        <label for="" class="duration-300 text-gray-500 absolute top-0 left-0 p-3 pointer-events-none
+            group-focus-within:text-blue-600 group-focus-within:text-sm group-focus-within:-translate-y-7 
+            group-focus-within:bg-white group-focus-within:px-2">
+            Número de teléfono
+        </label>
+    </div>
+
+    <!-- Campo de comentario -->
+    <div class="relative mt-10 text-xl input-box group">
+        <textarea name="comment" rows="5"
+            class="outline-none border-2 border-gray-300 p-3 rounded-xl bg-white w-full resize-none
+            focus:border-blue-500 focus:ring-4 focus:ring-blue-100 transition-all duration-300
+            hover:border-gray-400 shadow-sm" required></textarea>
+        <label for="" class="duration-300 text-gray-500 absolute top-0 left-0 p-3 pointer-events-none
+            group-focus-within:text-blue-600 group-focus-within:text-sm group-focus-within:-translate-y-7 
+            group-focus-within:bg-white group-focus-within:px-2">
+            Comentario
+        </label>
+    </div>
+
+    <!-- Botón mejorado -->
+    <div class="flex justify-center mt-10">
+        <button class="relative px-10 py-4 bg-gradient-to-r from-blue-600 to-indigo-600 
+            hover:from-blue-700 hover:to-indigo-700 rounded-xl font-bold text-white text-xl 
+            transition-all duration-300 shadow-lg hover:shadow-2xl transform hover:scale-105
+            focus:outline-none focus:ring-4 focus:ring-blue-300
+            before:absolute before:inset-0 before:bg-white before:opacity-0 
+            before:hover:opacity-10 before:transition-opacity before:rounded-xl">
+            <span class="flex items-center gap-2">
+                Enviar Mensaje
+                <svg class="w-5 h-5 transform group-hover:translate-x-1 transition-transform" 
+                    fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                        d="M14 5l7 7m0 0l-7 7m7-7H3"/>
+                </svg>
+            </span>
+        </button>
+    </div>
+
+    <!-- Información adicional -->
+    <div class="mt-12 p-6 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl border border-blue-100">
+        <div class="flex items-start gap-4">
+            <div class="flex-shrink-0">
+                <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                        d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+            </div>
+            <div>
+                <h3 class="font-semibold text-gray-800 text-lg mb-1">Tiempo de respuesta</h3>
+                <p class="text-gray-600">Normalmente respondemos en menos de 24 horas hábiles.</p>
+            </div>
+        </div>
+    </div>
+</form>

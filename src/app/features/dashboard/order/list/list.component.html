@@ -1,0 +1,361 @@
+<main class="p-5">
+  <div class="flex justify-between items-center mb-6">
+    <h2 class="text-neutral-700 font-bold text-2xl uppercase">
+      Lista de Pedidos
+    </h2>
+    <button
+      routerLink="/dashboard/orders/new"
+      class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-lg transition-colors flex items-center gap-2 font-semibold"
+    >
+      <span>+</span>
+      <span>Nuevo Pedido</span>
+    </button>
+  </div>
+
+  <!-- Mensajes -->
+  <div
+    *ngIf="successMessage"
+    class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4"
+  >
+    ✓ {{ successMessage }}
+  </div>
+  <div
+    *ngIf="errorMessage"
+    class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4"
+  >
+    ✗ {{ errorMessage }}
+  </div>
+
+  <!-- Filtros -->
+  <div class="bg-white px-4 py-3 mt-4 flex flex-wrap gap-4 items-center">
+    <input
+      type="text"
+      placeholder="Buscar por número de pedido..."
+      (input)="onSearch($event)"
+      class="border rounded px-4 py-2 w-64 focus:ring-2 focus:ring-orange-500"
+    />
+
+    <select
+      (change)="onStatusFilter($event)"
+      class="border rounded px-4 py-2 focus:ring-2 focus:ring-orange-500"
+    >
+      <option *ngFor="let status of statuses" [value]="status.value">
+        {{ status.label }}
+      </option>
+    </select>
+
+    <select
+      (change)="onCustomerFilter($event)"
+      class="border rounded px-4 py-2 focus:ring-2 focus:ring-orange-500"
+    >
+      <option value="">Todos los clientes</option>
+      <option *ngFor="let customer of customers" [value]="customer.id">
+        {{ customer.first_name }} {{ customer.last_name }}
+      </option>
+    </select>
+  </div>
+
+  <!-- Tabla de Pedidos -->
+  <section class="bg-white px-2 py-4 mt-4">
+    <div class="overflow-x-auto">
+      <table class="w-full">
+        <thead class="bg-gray-100">
+          <tr>
+            <th class="px-4 py-3 text-left">ID</th>
+            <th class="px-4 py-3 text-left">Nº Pedido</th>
+            <th class="px-4 py-3 text-left">Cliente</th>
+            <th class="px-4 py-3 text-left">Estado</th>
+            <th class="px-4 py-3 text-left">Total</th>
+            <th class="px-4 py-3 text-left">Items</th>
+            <th class="px-4 py-3 text-left">Fecha</th>
+            <th class="px-4 py-3 text-center">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let order of orders" class="border-t hover:bg-gray-50">
+            <td class="px-4 py-3">{{ order.id }}</td>
+            <td class="px-4 py-3 font-semibold">#{{ order.order_number }}</td>
+            <td class="px-4 py-3">{{ getCustomerName(order) }}</td>
+            <td class="px-4 py-3">
+              <span
+                [class]="getStatusClass(order.status)"
+                class="px-3 py-1 rounded-full text-sm font-semibold"
+              >
+                {{ getStatusLabel(order.status) }}
+              </span>
+            </td>
+            <td class="px-4 py-3 font-bold text-orange-600">
+              ${{ order.total | number : "1.2-2" }}
+            </td>
+            <td class="px-4 py-3 text-center">
+              <span class="bg-gray-200 px-2 py-1 rounded">
+                {{ order.items?.length || 0 }}
+              </span>
+            </td>
+            <td class="px-4 py-3">
+              {{ order.created_at | date : "dd/MM/yyyy HH:mm" }}
+            </td>
+            <td class="px-4 py-3 text-center">
+              <div class="flex justify-center gap-2">
+                <button
+                  (click)="openDetailModal(order)"
+                  class="text-blue-600 hover:text-blue-800 p-2 rounded hover:bg-blue-50"
+                  title="Ver detalle"
+                >
+                  <i class="fas fa-eye"></i>
+                </button>
+                <button
+                  (click)="openStatusModal(order)"
+                  class="text-green-600 hover:text-green-800 p-2 rounded hover:bg-green-50"
+                  title="Cambiar estado"
+                >
+                  <i class="fas fa-sync-alt"></i>
+                </button>
+                <button
+                  (click)="deleteOrder(order.id!)"
+                  class="text-red-600 hover:text-red-800 p-2 rounded hover:bg-red-50"
+                  title="Eliminar"
+                >
+                  <i class="fas fa-trash"></i>
+                </button>
+              </div>
+            </td>
+          </tr>
+          <tr *ngIf="orders.length === 0">
+            <td colspan="8" class="text-center py-8 text-gray-500">
+              <div class="flex flex-col items-center gap-2">
+                <i class="fas fa-inbox text-4xl text-gray-300"></i>
+                <p>No hay pedidos disponibles</p>
+              </div>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Paginación -->
+    <div class="flex justify-between items-center mt-4">
+      <div class="text-sm text-gray-600">
+        Mostrando {{ orders.length }} de {{ totalOrders }} pedidos
+      </div>
+      <div class="flex gap-2">
+        <button
+          (click)="previousPage()"
+          [disabled]="currentPage === 1"
+          class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          Anterior
+        </button>
+        <span class="px-4 py-2"
+          >Página {{ currentPage }} de {{ totalPages }}</span
+        >
+        <button
+          (click)="nextPage()"
+          [disabled]="currentPage === totalPages"
+          class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          Siguiente
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODAL: DETALLE DEL PEDIDO -->
+  <div
+    class="modal-container fixed z-[888] w-full h-screen top-0 left-0 flex justify-center items-center opacity-0 invisible bg-black bg-opacity-50"
+    #detailModalContainer
+  >
+    <div
+      class="modal p-6 relative w-full max-w-4xl bg-white rounded-xl transition-transform duration-500 ease-in-out translate-y-0 modal-close max-h-[90vh] overflow-y-auto"
+      #detailModal
+    >
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="text-neutral-700 text-2xl font-bold">
+          DETALLE DEL PEDIDO #{{ selectedOrder?.order_number }}
+        </h2>
+        <button
+          (click)="closeDetailModal()"
+          class="text-gray-500 hover:text-gray-700 text-2xl"
+        >
+          &times;
+        </button>
+      </div>
+
+      <div *ngIf="selectedOrder" class="space-y-6">
+        <!-- Info General -->
+        <div class="grid grid-cols-2 gap-4 bg-gray-50 p-4 rounded-lg">
+          <div>
+            <p class="text-sm text-gray-600">Cliente</p>
+            <p class="font-semibold">{{ getCustomerName(selectedOrder) }}</p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-600">Estado</p>
+            <span
+              [class]="getStatusClass(selectedOrder.status)"
+              class="px-3 py-1 rounded-full text-sm font-semibold inline-block"
+            >
+              {{ getStatusLabel(selectedOrder.status) }}
+            </span>
+          </div>
+          <div>
+            <p class="text-sm text-gray-600">Fecha de Creación</p>
+            <p class="font-semibold">
+              {{ selectedOrder.created_at | date : "dd/MM/yyyy HH:mm" }}
+            </p>
+          </div>
+          <div>
+            <p class="text-sm text-gray-600">Email Cliente</p>
+            <p class="font-semibold">
+              {{ selectedOrder.customer?.email || "N/A" }}
+            </p>
+          </div>
+        </div>
+
+        <!-- Items del Pedido -->
+        <div>
+          <h3 class="font-semibold text-lg mb-3">Productos</h3>
+          <table class="w-full border">
+            <thead class="bg-gray-100">
+              <tr>
+                <th class="px-4 py-2 text-left border">Producto</th>
+                <th class="px-4 py-2 text-center border">Cantidad</th>
+                <th class="px-4 py-2 text-right border">P. Unit.</th>
+                <th class="px-4 py-2 text-right border">Subtotal</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of selectedOrder.items" class="border-t">
+                <td class="px-4 py-2 border">
+                  {{ item.product_name || "Producto" }}
+                </td>
+                <td class="px-4 py-2 text-center border">
+                  {{ item.quantity }}
+                </td>
+                <td class="px-4 py-2 text-right border">
+                  ${{ item.unit_price | number : "1.2-2" }}
+                </td>
+                <td class="px-4 py-2 text-right border font-semibold">
+                  ${{ item.subtotal | number : "1.2-2" }}
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Totales -->
+        <div class="bg-gray-50 p-4 rounded-lg">
+          <div class="flex justify-between py-2">
+            <span>Subtotal:</span>
+            <span class="font-semibold"
+              >${{ selectedOrder.subtotal | number : "1.2-2" }}</span
+            >
+          </div>
+          <div class="flex justify-between py-2">
+            <span>Descuento:</span>
+            <span class="font-semibold text-red-600"
+              >-${{ selectedOrder.discount | number : "1.2-2" }}</span
+            >
+          </div>
+          <div class="flex justify-between py-2">
+            <span>Impuesto:</span>
+            <span class="font-semibold"
+              >+${{ selectedOrder.tax | number : "1.2-2" }}</span
+            >
+          </div>
+          <div
+            class="flex justify-between py-3 border-t-2 border-gray-800 mt-2"
+          >
+            <span class="font-bold text-lg">TOTAL:</span>
+            <span class="font-bold text-xl text-orange-600"
+              >${{ selectedOrder.total | number : "1.2-2" }}</span
+            >
+          </div>
+        </div>
+
+        <!-- Notas -->
+        <div *ngIf="selectedOrder.notes" class="bg-blue-50 p-4 rounded-lg">
+          <p class="text-sm text-gray-600 mb-1">Notas:</p>
+          <p class="text-gray-800">{{ selectedOrder.notes }}</p>
+        </div>
+      </div>
+
+      <div class="flex justify-end mt-6">
+        <button
+          (click)="closeDetailModal()"
+          class="px-6 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+        >
+          Cerrar
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- MODAL: CAMBIAR ESTADO -->
+  <div
+    class="modal-container fixed z-[888] w-full h-screen top-0 left-0 flex justify-center items-center opacity-0 invisible bg-black bg-opacity-50"
+    #statusModalContainer
+  >
+    <div
+      class="modal p-6 relative w-full max-w-md bg-white rounded-xl transition-transform duration-500 ease-in-out translate-y-0 modal-close"
+      #statusModal
+    >
+      <h2 class="text-neutral-700 text-2xl mb-6 font-bold">CAMBIAR ESTADO</h2>
+
+      <form
+        [formGroup]="statusForm"
+        *ngIf="selectedOrder"
+        (ngSubmit)="onStatusSubmit()"
+      >
+        <div class="mb-4">
+          <p class="text-sm text-gray-600 mb-2">
+            Pedido: <strong>#{{ selectedOrder.order_number }}</strong>
+          </p>
+          <p class="text-sm text-gray-600 mb-4">
+            Estado actual:
+            <span
+              [class]="getStatusClass(selectedOrder.status)"
+              class="px-2 py-1 rounded text-xs font-semibold"
+            >
+              {{ getStatusLabel(selectedOrder.status) }}
+            </span>
+          </p>
+        </div>
+
+        <div class="form-group">
+          <label class="block mb-2 font-semibold">Nuevo Estado</label>
+          <select
+            formControlName="status"
+            class="w-full p-3 border rounded focus:outline-none focus:ring-2 focus:ring-orange-500"
+            [class.border-red-500]="
+              statusForm.get('status')?.invalid &&
+              statusForm.get('status')?.touched
+            "
+          >
+            <option value="">-- Seleccione un estado --</option>
+            <option value="pending">Pendiente</option>
+            <option value="processing">En proceso</option>
+            <option value="completed">Completado</option>
+            <option value="cancelled">Cancelado</option>
+          </select>
+        </div>
+
+        <div class="flex justify-end gap-4 mt-6">
+          <button
+            type="button"
+            class="px-6 py-2 bg-gray-500 text-white rounded hover:bg-gray-600"
+            (click)="closeStatusModal()"
+          >
+            Cancelar
+          </button>
+          <button
+            type="submit"
+            class="px-6 py-2 bg-orange-500 text-white rounded hover:bg-orange-600 disabled:opacity-50"
+            [disabled]="statusForm.invalid"
+          >
+            Guardar
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>

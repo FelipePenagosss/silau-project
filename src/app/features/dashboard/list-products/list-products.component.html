@@ -1,0 +1,272 @@
+<!-- list-products.component.html -->
+<main class="p-5">
+  <h2 class="text-neutral-700 font-bold text-2xl uppercase">
+    Lista de Productos
+  </h2>
+
+  <!-- Mensajes de éxito/error -->
+  <div
+    *ngIf="successMessage"
+    class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4 mt-4"
+  >
+    {{ successMessage }}
+  </div>
+  <div
+    *ngIf="errorMessage"
+    class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4 mt-4"
+  >
+    {{ errorMessage }}
+  </div>
+
+  <!-- Barra de búsqueda y botón agregar -->
+  <div
+    class="bg-white px-4 py-3 mt-4 flex justify-between items-center rounded"
+  >
+    <input
+      type="text"
+      placeholder="Buscar productos..."
+      (input)="onSearch($event)"
+      class="border rounded px-4 py-2 w-64 focus:outline-none focus:ring-2 focus:ring-orange-500"
+    />
+    
+  </div>
+
+  <section class="bg-white px-2 py-4 mt-4 rounded shadow">
+    <div class="overflow-x-auto">
+      <table class="w-full">
+        <thead>
+          <tr class="border-b bg-gray-50">
+            <th class="p-3 text-left font-semibold">ID</th>
+            <th class="p-3 text-left font-semibold">Nombre</th>
+            <th class="p-3 text-left font-semibold">Precio</th>
+            <th class="p-3 text-left font-semibold">Stock</th>
+            <th class="p-3 text-left font-semibold">Fecha Creación</th>
+            <th class="p-3 text-center font-semibold">Acciones</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let product of products"
+            class="border-b hover:bg-gray-50 transition"
+          >
+            <td class="p-3">{{ product.id }}</td>
+            <td class="p-3 font-medium">{{ product.name }}</td>
+            <td class="p-3">
+              {{ product.price | currency : "USD" : "symbol" : "1.2-2" }}
+            </td>
+            <td class="p-3">
+              <div class="flex items-center gap-2">
+                <button
+                  (click)="decrementStock(product)"
+                  class="bg-gray-200 px-2 py-1 rounded hover:bg-gray-300 transition"
+                  [disabled]="product.stock === 0"
+                  [class.opacity-50]="product.stock === 0"
+                  [class.cursor-not-allowed]="product.stock === 0"
+                >
+                  <i class="fas fa-minus text-xs"></i>
+                </button>
+                <span
+                  class="font-semibold min-w-[40px] text-center"
+                  [class.text-red-500]="product.stock === 0"
+                >
+                  {{ product.stock }}
+                </span>
+                <button
+                  (click)="incrementStock(product)"
+                  class="bg-gray-200 px-2 py-1 rounded hover:bg-gray-300 transition"
+                >
+                  <i class="fas fa-plus text-xs"></i>
+                </button>
+              </div>
+            </td>
+            <td class="p-3 text-sm text-gray-600">
+              {{ product.created_at | date : "dd/MM/yyyy HH:mm" }}
+            </td>
+            <td class="p-3 text-center">
+              <button
+                class="text-blue-600 hover:text-blue-800 mr-3 transition"
+                (click)="openEditModal(product)"
+                title="Editar producto"
+              >
+                <i class="fas fa-edit"></i>
+              </button>
+              <button
+                class="text-red-600 hover:text-red-800 transition"
+                (click)="deleteProduct(product.id!)"
+                title="Eliminar producto"
+              >
+                <i class="fas fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+          <tr *ngIf="products.length === 0">
+            <td colspan="6" class="text-center py-8 text-gray-500">
+              <i class="fas fa-box-open text-4xl mb-2"></i>
+              <p>No hay productos disponibles</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Paginación -->
+    <div class="flex justify-between items-center mt-6 pt-4 border-t">
+      <div class="text-sm text-gray-600">
+        Mostrando <span class="font-semibold">{{ products.length }}</span> de
+        <span class="font-semibold">{{ totalProducts }}</span> productos
+      </div>
+      <div class="flex gap-2 items-center">
+        <button
+          (click)="previousPage()"
+          [disabled]="currentPage === 1"
+          class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed transition"
+        >
+          <i class="fas fa-chevron-left"></i> Anterior
+        </button>
+        <span class="px-4 py-2 text-sm">
+          Página <span class="font-semibold">{{ currentPage }}</span> de
+          <span class="font-semibold">{{ totalPages }}</span>
+        </span>
+        <button
+          (click)="nextPage()"
+          [disabled]="currentPage === totalPages"
+          class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed transition"
+        >
+          Siguiente <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Modal de Edición -->
+<div
+  class="modal-container fixed z-[888] w-full h-screen top-0 left-0 flex justify-center items-center opacity-0 invisible bg-black bg-opacity-50"
+  #editModalContainer
+>
+  <div
+    class="modal p-6 relative w-full max-w-2xl bg-white rounded-xl transition-transform duration-500 ease-in-out translate-y-0 overflow-y-auto modal-close shadow-2xl"
+    #editModal
+  >
+    <h2 class="text-neutral-700 text-2xl mb-6 font-bold border-b pb-3">
+      <i class="fas fa-edit text-orange-500 mr-2"></i> Editar Producto
+    </h2>
+
+    <form
+      [formGroup]="editForm"
+      *ngIf="selectedProduct"
+      (ngSubmit)="onSubmit()"
+      class="space-y-4"
+    >
+      <div class="form-group">
+        <label class="block mb-2 font-semibold text-gray-700">
+          Nombre del Producto <span class="text-red-500">*</span>
+        </label>
+        <input
+          type="text"
+          formControlName="name"
+          class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition"
+          [class.border-red-500]="
+            editForm.get('name')?.invalid && editForm.get('name')?.touched
+          "
+          placeholder="Ej: Laptop HP"
+        />
+        <div
+          *ngIf="editForm.get('name')?.invalid && editForm.get('name')?.touched"
+          class="text-red-500 text-sm mt-1"
+        >
+          <span *ngIf="editForm.get('name')?.errors?.['required']">
+            <i class="fas fa-exclamation-circle"></i> El nombre es requerido
+          </span>
+          <span *ngIf="editForm.get('name')?.errors?.['minlength']">
+            <i class="fas fa-exclamation-circle"></i> Mínimo 3 caracteres
+          </span>
+          <span *ngIf="editForm.get('name')?.errors?.['maxlength']">
+            <i class="fas fa-exclamation-circle"></i> Máximo 100 caracteres
+          </span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-2 gap-4">
+        <div class="form-group">
+          <label class="block mb-2 font-semibold text-gray-700">
+            Precio (USD) <span class="text-red-500">*</span>
+          </label>
+          <div class="relative">
+            <span class="absolute left-3 top-3 text-gray-500">$</span>
+            <input
+              type="number"
+              formControlName="price"
+              step="0.01"
+              class="w-full p-3 pl-8 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition"
+              [class.border-red-500]="
+                editForm.get('price')?.invalid && editForm.get('price')?.touched
+              "
+              placeholder="0.00"
+            />
+          </div>
+          <div
+            *ngIf="
+              editForm.get('price')?.invalid && editForm.get('price')?.touched
+            "
+            class="text-red-500 text-sm mt-1"
+          >
+            <span *ngIf="editForm.get('price')?.errors?.['required']">
+              <i class="fas fa-exclamation-circle"></i> El precio es requerido
+            </span>
+            <span *ngIf="editForm.get('price')?.errors?.['min']">
+              <i class="fas fa-exclamation-circle"></i> Debe ser mayor o igual a
+              0
+            </span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label class="block mb-2 font-semibold text-gray-700">
+            Stock <span class="text-red-500">*</span>
+          </label>
+          <input
+            type="number"
+            formControlName="stock"
+            class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition"
+            [class.border-red-500]="
+              editForm.get('stock')?.invalid && editForm.get('stock')?.touched
+            "
+            placeholder="0"
+          />
+          <div
+            *ngIf="
+              editForm.get('stock')?.invalid && editForm.get('stock')?.touched
+            "
+            class="text-red-500 text-sm mt-1"
+          >
+            <span *ngIf="editForm.get('stock')?.errors?.['required']">
+              <i class="fas fa-exclamation-circle"></i> El stock es requerido
+            </span>
+            <span *ngIf="editForm.get('stock')?.errors?.['min']">
+              <i class="fas fa-exclamation-circle"></i> Debe ser mayor o igual a
+              0
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex justify-end gap-3 pt-4 border-t mt-6">
+        <button
+          type="button"
+          class="px-6 py-2 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition"
+          (click)="closeModal()"
+        >
+          <i class="fas fa-times mr-2"></i> Cancelar
+        </button>
+        <button
+          type="submit"
+          class="px-6 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition disabled:opacity-50 disabled:cursor-not-allowed"
+          [disabled]="editForm.invalid"
+        >
+          <i class="fas fa-save mr-2"></i> Guardar Cambios
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

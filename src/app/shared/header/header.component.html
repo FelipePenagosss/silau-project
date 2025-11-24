@@ -1,0 +1,58 @@
+<header class="container max-w-5xl mx-auto py-4">
+    <div class="flex items-center justify-center gap-6 flex-col md:flex-row relative">
+
+        <!-- Logo que sobresale del fondo -->
+        <a routerLink="/" class="relative z-10 -mb-3 md:mb-0 md:-mr-6">
+            <img class="w-40 cursor-pointer hover:scale-105 duration-300" src="../../../assets/images/logo.png" alt="">
+        </a>
+
+        <!-- Contenedor con fondo azul -->
+        <div class="flex justify-between items-center gap-10 flex-col sm:flex-row
+            opacity-0 animate-[fadeSlideUp_0.8s_ease-out_forwards]
+            bg-blue-600/15 backdrop-blur-lg rounded-2xl px-8 py-3 shadow-xl
+            border border-blue-300/20 hover:shadow-2xl transition-all duration-300
+            md:pl-12">
+
+            <ul class="flex w-full flex-1 gap-5">
+                <li>
+                    <a routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" routerLink="/"
+                        class="link font-semibold text-lg duration-300 relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-[2px] after:bg-[#0056D2] after:rounded-full after:duration-300 hover:after:w-full hover:text-[#0056D2]">
+                        Inicio
+                    </a>
+                </li>
+                <li>
+                    <a routerLinkActive="active" routerLink="/enterprise"
+                        class="link font-semibold text-lg duration-300 relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-[2px] after:bg-[#0056D2] after:rounded-full after:duration-300 hover:after:w-full hover:text-[#0056D2]">
+                        Empresa
+                    </a>
+                </li>
+                <li>
+                    <a routerLinkActive="active" routerLink="/products"
+                        class="link font-semibold text-lg duration-300 relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-[2px] after:bg-[#0056D2] after:rounded-full after:duration-300 hover:after:w-full hover:text-[#0056D2]">
+                        Productos
+                    </a>
+                </li>
+                <li>
+                    <a routerLinkActive="active" routerLink="/events"
+                        class="link font-semibold text-lg duration-300 relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-[2px] after:bg-[#0056D2] after:rounded-full after:duration-300 hover:after:w-full hover:text-[#0056D2]">
+                        Eventos
+                    </a>
+                </li>
+                <li>
+                    <a routerLinkActive="active" routerLink="/contact"
+                        class="link font-semibold text-lg duration-300 relative after:content-[''] after:absolute after:-bottom-1 after:left-0 after:w-0 after:h-[2px] after:bg-[#0056D2] after:rounded-full after:duration-300 hover:after:w-full hover:text-[#0056D2]">
+                        Contacto
+                    </a>
+                </li>
+            </ul>
+
+            <ul class="flex w-full flex-1 justify-center items-center gap-5">
+                <li>
+                    <a routerLink="/login">
+                        <img class="w-10 hover:scale-110 duration-300" src="../../../assets/images/usuario.png" alt="">
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</header>

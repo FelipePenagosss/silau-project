@@ -1,0 +1,11 @@
+<div class="content-container h-screen">
+    <app-side-bar [parentElement]="main"></app-side-bar>
+    <main #main class="main-content ml-0 p-8 duration-500 ease-in-out text-justify sm:ml-60 bg-gray-100 min-h-screen">
+        <div *ngIf="showDashboard">
+            <h2>Dashboard</h2>
+        </div>
+        <router-outlet></router-outlet>
+    </main>
+</div>
+
+

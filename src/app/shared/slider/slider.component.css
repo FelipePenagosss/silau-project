@@ -1,0 +1,98 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* CONTENEDOR GENERAL */
+.container-carrousel {
+    height: 500px;
+    position: relative;
+    overflow: hidden;
+                 /* ESQUINAS REDONDEADAS */
+    box-shadow: 0 8px 25px rgba(0,0,0,0.25); /* SOMBRA MODERNA */
+}
+
+/* SLIDER COMPLETO */
+.carrousels {
+    width: 400%;
+    height: 100%;
+    display: flex;
+}
+
+/* CADA SLIDE */
+.slider-section {
+    width: calc(100% / 4);
+    height: 100%;
+    position: relative;
+}
+
+/* IMÁGENES */
+.slider-section img {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    transition: transform 0.7s ease;
+}
+
+/* LIGERO EFECTO ZOOM */
+.slider-section:hover img {
+    transform: scale(1.05);
+}
+
+/* OVERLAY OSCURO PARA QUE LAS IMÁGENES RESALTEN */
+.slider-section::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        180deg,
+        rgba(0,0,0,0.45),
+        rgba(0,0,0,0.15)
+    );
+    pointer-events: none;
+}
+
+/* BOTONES */
+.btn-left,
+.btn-rigth {
+    display: flex;
+    position: absolute;
+    top: 50%;
+    background-color: rgba(0,0,0,0.45); /* Semitransparente elegante */
+    backdrop-filter: blur(4px);         /* EFECTO VIDRIO */
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    font-size: 2rem;
+    font-weight: 700;
+    color: white;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(-50%);
+    transition: 0.3s ease;
+    cursor: pointer;
+}
+
+/* HOVER EFECTO */
+.btn-left:hover,
+.btn-rigth:hover {
+    background-color: rgba(0,0,0,0.7);
+    transform: translateY(-50%) scale(1.15);
+}
+
+/* POSICIÓN */
+.btn-left {
+    left: 15px;
+}
+
+.btn-rigth {
+    right: 15px;
+}
+
+/* MOVIMIENTO LATERAL SUAVE */
+.btn-left:hover {
+    left: 10px;
+}
+
+.btn-rigth:hover {
+    right: 10px;
+}

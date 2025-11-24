@@ -1,0 +1,203 @@
+<main class="p-5">
+  <div class="max-w-3xl mx-auto">
+    <div class="flex items-center mb-6">
+      <button
+        (click)="cancel()"
+        class="text-gray-600 hover:text-gray-800 mr-4 transition"
+        title="Volver"
+      >
+        <i class="fas fa-arrow-left text-xl"></i>
+      </button>
+      <h2 class="text-neutral-700 font-bold text-2xl uppercase">
+        <i class="fas fa-plus-circle text-orange-500 mr-2"></i>
+        Agregar Nuevo Producto
+      </h2>
+    </div>
+
+    <!-- Mensajes de éxito/error -->
+    <div
+      *ngIf="successMessage"
+      class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded-lg mb-4 animate-fade-in"
+    >
+      <i class="fas fa-check-circle mr-2"></i> {{ successMessage }}
+    </div>
+    <div
+      *ngIf="errorMessage"
+      class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded-lg mb-4 animate-fade-in"
+    >
+      <i class="fas fa-exclamation-circle mr-2"></i> {{ errorMessage }}
+    </div>
+
+    <div class="bg-white p-6 rounded-lg shadow-lg">
+      <form [formGroup]="productForm" (ngSubmit)="onSubmit()" class="space-y-6">
+        <!-- Nombre del Producto -->
+        <div class="form-group">
+          <label class="block mb-2 font-semibold text-gray-700">
+            <i class="fas fa-box mr-2 text-orange-500"></i>
+            Nombre del Producto <span class="text-red-500">*</span>
+          </label>
+          <input
+            type="text"
+            formControlName="name"
+            placeholder="Ej: Laptop HP ProBook 450"
+            class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition"
+            [class.border-red-500]="
+              productForm.get('name')?.invalid &&
+              productForm.get('name')?.touched
+            "
+          />
+          <div
+            *ngIf="
+              productForm.get('name')?.invalid &&
+              productForm.get('name')?.touched
+            "
+            class="text-red-500 text-sm mt-1"
+          >
+            <span *ngIf="productForm.get('name')?.errors?.['required']">
+              <i class="fas fa-exclamation-circle"></i> El nombre es requerido
+            </span>
+            <span *ngIf="productForm.get('name')?.errors?.['minlength']">
+              <i class="fas fa-exclamation-circle"></i> El nombre debe tener al
+              menos 3 caracteres
+            </span>
+            <span *ngIf="productForm.get('name')?.errors?.['maxlength']">
+              <i class="fas fa-exclamation-circle"></i> El nombre no puede
+              exceder 100 caracteres
+            </span>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Precio -->
+          <div class="form-group">
+            <label class="block mb-2 font-semibold text-gray-700">
+              <i class="fas fa-dollar-sign mr-2 text-green-500"></i>
+              Precio (USD) <span class="text-red-500">*</span>
+            </label>
+            <div class="relative">
+              <span
+                class="absolute left-3 top-3 text-gray-500 font-bold text-lg"
+                >$</span
+              >
+              <input
+                type="number"
+                formControlName="price"
+                placeholder="0.00"
+                step="0.01"
+                min="0"
+                class="w-full p-3 pl-10 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition"
+                [class.border-red-500]="
+                  productForm.get('price')?.invalid &&
+                  productForm.get('price')?.touched
+                "
+              />
+            </div>
+            <div
+              *ngIf="
+                productForm.get('price')?.invalid &&
+                productForm.get('price')?.touched
+              "
+              class="text-red-500 text-sm mt-1"
+            >
+              <span *ngIf="productForm.get('price')?.errors?.['required']">
+                <i class="fas fa-exclamation-circle"></i> El precio es requerido
+              </span>
+              <span *ngIf="productForm.get('price')?.errors?.['min']">
+                <i class="fas fa-exclamation-circle"></i> El precio debe ser
+                mayor o igual a 0
+              </span>
+            </div>
+          </div>
+
+          <!-- Stock -->
+          <div class="form-group">
+            <label class="block mb-2 font-semibold text-gray-700">
+              <i class="fas fa-warehouse mr-2 text-blue-500"></i>
+              Stock Inicial <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="number"
+              formControlName="stock"
+              placeholder="0"
+              min="0"
+              class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition"
+              [class.border-red-500]="
+                productForm.get('stock')?.invalid &&
+                productForm.get('stock')?.touched
+              "
+            />
+            <div
+              *ngIf="
+                productForm.get('stock')?.invalid &&
+                productForm.get('stock')?.touched
+              "
+              class="text-red-500 text-sm mt-1"
+            >
+              <span *ngIf="productForm.get('stock')?.errors?.['required']">
+                <i class="fas fa-exclamation-circle"></i> El stock es requerido
+              </span>
+              <span *ngIf="productForm.get('stock')?.errors?.['min']">
+                <i class="fas fa-exclamation-circle"></i> El stock debe ser
+                mayor o igual a 0
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Información importante -->
+        <div class="bg-blue-50 border-l-4 border-blue-500 p-4 rounded">
+          <div class="flex items-start">
+            <i class="fas fa-info-circle text-blue-500 mt-1 mr-3"></i>
+            <div>
+              <p class="text-sm text-blue-800 font-semibold mb-1">
+                Información importante
+              </p>
+              <ul class="text-sm text-blue-700 list-disc list-inside space-y-1">
+                <li>
+                  Todos los campos marcados con
+                  <span class="text-red-500">*</span> son obligatorios
+                </li>
+                <li>El nombre del producto debe ser único</li>
+                <li>El precio debe incluir centavos (ej: 99.99)</li>
+                <li>El stock se puede actualizar después desde la lista</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botones -->
+        <div class="flex justify-end gap-4 pt-6 border-t">
+          <button
+            type="button"
+            class="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition flex items-center gap-2"
+            (click)="cancel()"
+            [disabled]="isSubmitting"
+          >
+            <i class="fas fa-times"></i>
+            <span>Cancelar</span>
+          </button>
+          <button
+            type="submit"
+            class="px-6 py-3 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+            [disabled]="productForm.invalid || isSubmitting"
+          >
+            <i
+              [class]="isSubmitting ? 'fas fa-spinner fa-spin' : 'fas fa-save'"
+            ></i>
+            <span *ngIf="!isSubmitting">Crear Producto</span>
+            <span *ngIf="isSubmitting">Creando...</span>
+          </button>
+        </div>
+
+        <!-- Estado del formulario (solo en desarrollo) -->
+        <div
+          class="mt-4 p-3 bg-gray-100 rounded text-xs text-gray-600"
+          *ngIf="false"
+        >
+          <strong>Debug:</strong> Form Valid: {{ productForm.valid }} |
+          Submitting: {{ isSubmitting }}
+        </div>
+      </form>
+    </div>
+  </div>
+</main>

@@ -1,0 +1,359 @@
+<main class="p-5">
+  <h2 class="text-neutral-700 font-bold text-2xl uppercase">
+    Lista de clientes
+  </h2>
+
+  <!-- Mensajes -->
+  <div
+    *ngIf="successMessage"
+    class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded mb-4 mt-4"
+  >
+    <i class="fas fa-check-circle mr-2"></i> {{ successMessage }}
+  </div>
+  <div
+    *ngIf="errorMessage"
+    class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4 mt-4"
+  >
+    <i class="fas fa-exclamation-circle mr-2"></i> {{ errorMessage }}
+  </div>
+
+  <button
+    (click)="openModal()"
+    class="btn-add my-5 relative duration-500 overflow-hidden flex gap-2 justify-center items-center font-semibold text-white bg-brand-yellow py-2 px-5 text-lg rounded-md hover:scale-105"
+  >
+    <i class="fa fa-plus"></i>
+    <span>Nuevo Cliente</span>
+  </button>
+
+  <section class="bg-white px-2 py-4 rounded shadow">
+    <div class="flex justify-between items-center flex-col sm:flex-row gap-5">
+      <p class="flex gap-2 text-lg items-center">
+        <span>Mostrar</span>
+        <select
+          (change)="filterByLimit($event)"
+          [(ngModel)]="limit"
+          class="w-20 px-2 py-1 border border-gray-300 rounded-md bg-gray-50 text-gray-700 focus:border-orange-500 focus:ring-2 focus:ring-orange-400 outline-none"
+        >
+          <option *ngFor="let num of numberList" [value]="num">
+            {{ num }}
+          </option>
+        </select>
+        <span>entradas</span>
+      </p>
+      <div class="relative flex items-center gap-2">
+        <label for="search" class="text-gray-700 font-semibold">Buscar:</label>
+        <input
+          type="text"
+          id="search"
+          class="w-64 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+          placeholder="Buscar por nombre, email..."
+          [(ngModel)]="searchTerm"
+          (input)="onSearch()"
+        />
+      </div>
+    </div>
+
+    <div class="overflow-x-auto mt-5">
+      <table
+        class="min-w-full bg-white border border-gray-200 rounded-lg shadow-md"
+      >
+        <thead>
+          <tr class="bg-gray-100 text-gray-700 text-left">
+            <th class="px-4 py-3 border-b font-semibold">ID</th>
+            <th class="px-4 py-3 border-b font-semibold">Nombre</th>
+            <th class="px-4 py-3 border-b font-semibold">Apellido</th>
+            <th class="px-4 py-3 border-b font-semibold">Email</th>
+            <th class="px-4 py-3 border-b font-semibold">Teléfono</th>
+            <th class="px-4 py-3 border-b font-semibold">Documento</th>
+            <th class="px-4 py-3 border-b font-semibold">Fecha Registro</th>
+            <th class="px-4 py-3 border-b font-semibold text-center">
+              Acciones
+            </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            *ngFor="let customer of customerListFilter"
+            class="hover:bg-gray-50 transition"
+          >
+            <td class="px-4 py-3 border-b">{{ customer.id }}</td>
+            <td class="px-4 py-3 border-b font-medium">
+              {{ customer.first_name }}
+            </td>
+            <td class="px-4 py-3 border-b font-medium">
+              {{ customer.last_name }}
+            </td>
+            <td class="px-4 py-3 border-b">{{ customer.email || "-" }}</td>
+            <td class="px-4 py-3 border-b">{{ customer.phone || "-" }}</td>
+            <td class="px-4 py-3 border-b">
+              <span *ngIf="customer.document_number">
+                {{ customer.document_type }}: {{ customer.document_number }}
+              </span>
+              <span *ngIf="!customer.document_number" class="text-gray-400"
+                >-</span
+              >
+            </td>
+            <td class="px-4 py-3 border-b text-sm text-gray-600">
+              {{ customer.created_at | date : "dd/MM/yyyy" }}
+            </td>
+            <td class="px-4 py-3 border-b text-center">
+              <button
+                (click)="openModal(customer)"
+                class="text-blue-500 hover:text-blue-700 mr-3 transition"
+                title="Editar"
+              >
+                <i class="fa fa-pencil"></i>
+              </button>
+              <button
+                (click)="deleteCustomer(customer.id!)"
+                class="text-red-500 hover:text-red-700 transition"
+                title="Eliminar"
+              >
+                <i class="fa fa-trash"></i>
+              </button>
+            </td>
+          </tr>
+          <tr *ngIf="customerListFilter.length === 0">
+            <td colspan="8" class="text-center py-8 text-gray-500">
+              <i class="fas fa-users text-4xl mb-2"></i>
+              <p>No hay clientes registrados</p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Paginación -->
+    <div class="flex justify-between items-center mt-6 pt-4 border-t">
+      <div class="text-sm text-gray-600">
+        Mostrando
+        <span class="font-semibold">{{ customerListFilter.length }}</span> de
+        <span class="font-semibold">{{ totalCustomers }}</span> clientes
+      </div>
+      <div class="flex gap-2 items-center">
+        <button
+          (click)="previousPage()"
+          [disabled]="currentPage === 1"
+          class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed transition"
+        >
+          <i class="fas fa-chevron-left"></i> Anterior
+        </button>
+        <span class="px-4 py-2 text-sm">
+          Página <span class="font-semibold">{{ currentPage }}</span> de
+          <span class="font-semibold">{{ totalPages }}</span>
+        </span>
+        <button
+          (click)="nextPage()"
+          [disabled]="currentPage === totalPages"
+          class="px-4 py-2 bg-gray-200 rounded hover:bg-gray-300 disabled:opacity-50 disabled:cursor-not-allowed transition"
+        >
+          Siguiente <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Modal -->
+  <div
+    #modal_container
+    class="modal-container fixed z-[888] w-full h-screen top-0 left-0 flex justify-center items-center opacity-0 invisible bg-black bg-opacity-50"
+  >
+    <div
+      #modal
+      class="modal p-6 modal-close relative w-full max-w-3xl bg-white rounded-xl transition-transform duration-500 ease-in-out translate-y-0 overflow-y-auto shadow-2xl max-h-[90vh]"
+    >
+      <h3 class="text-neutral-700 text-2xl text-left font-bold mb-4">
+        <i
+          [class]="
+            isEditMode
+              ? 'fa fa-edit text-blue-500'
+              : 'fa fa-user-plus text-green-500'
+          "
+          class="mr-2"
+        ></i>
+        {{ isEditMode ? "Editar Cliente" : "Agregar Nuevo Cliente" }}
+      </h3>
+      <button
+        (click)="closeModal()"
+        class="hover:scale-105 hover:shadow-md duration-200 absolute right-4 top-4 flex justify-center items-center w-8 h-8 rounded-full bg-red-600 text-white"
+      >
+        <i class="fa fa-close"></i>
+      </button>
+
+      <form [formGroup]="customerForm" (ngSubmit)="onSubmit()" class="mt-6">
+        <div class="space-y-4">
+          <!-- Nombre y Apellido -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block mb-2 font-semibold text-gray-700">
+                Nombre <span class="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                formControlName="first_name"
+                class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                [class.border-red-500]="
+                  customerForm.get('first_name')?.invalid &&
+                  customerForm.get('first_name')?.touched
+                "
+                placeholder="Ej: Juan"
+              />
+              <div
+                *ngIf="
+                  customerForm.get('first_name')?.invalid &&
+                  customerForm.get('first_name')?.touched
+                "
+                class="text-red-500 text-sm mt-1"
+              >
+                <span
+                  *ngIf="customerForm.get('first_name')?.errors?.['required']"
+                >
+                  <i class="fas fa-exclamation-circle"></i> El nombre es
+                  requerido
+                </span>
+                <span
+                  *ngIf="customerForm.get('first_name')?.errors?.['minlength']"
+                >
+                  <i class="fas fa-exclamation-circle"></i> Mínimo 2 caracteres
+                </span>
+              </div>
+            </div>
+
+            <div>
+              <label class="block mb-2 font-semibold text-gray-700">
+                Apellido <span class="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                formControlName="last_name"
+                class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                [class.border-red-500]="
+                  customerForm.get('last_name')?.invalid &&
+                  customerForm.get('last_name')?.touched
+                "
+                placeholder="Ej: Pérez"
+              />
+              <div
+                *ngIf="
+                  customerForm.get('last_name')?.invalid &&
+                  customerForm.get('last_name')?.touched
+                "
+                class="text-red-500 text-sm mt-1"
+              >
+                <span
+                  *ngIf="customerForm.get('last_name')?.errors?.['required']"
+                >
+                  <i class="fas fa-exclamation-circle"></i> El apellido es
+                  requerido
+                </span>
+                <span
+                  *ngIf="customerForm.get('last_name')?.errors?.['minlength']"
+                >
+                  <i class="fas fa-exclamation-circle"></i> Mínimo 2 caracteres
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Email y Teléfono -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block mb-2 font-semibold text-gray-700"
+                >Email</label
+              >
+              <input
+                type="email"
+                formControlName="email"
+                class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                [class.border-red-500]="
+                  customerForm.get('email')?.invalid &&
+                  customerForm.get('email')?.touched
+                "
+                placeholder="correo@ejemplo.com"
+              />
+              <div
+                *ngIf="
+                  customerForm.get('email')?.invalid &&
+                  customerForm.get('email')?.touched
+                "
+                class="text-red-500 text-sm mt-1"
+              >
+                <span *ngIf="customerForm.get('email')?.errors?.['email']">
+                  <i class="fas fa-exclamation-circle"></i> Email inválido
+                </span>
+              </div>
+            </div>
+
+            <div>
+              <label class="block mb-2 font-semibold text-gray-700"
+                >Teléfono</label
+              >
+              <input
+                type="text"
+                formControlName="phone"
+                class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                placeholder="3001234567"
+              />
+            </div>
+          </div>
+
+          <!-- Tipo y Número de Documento -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label class="block mb-2 font-semibold text-gray-700"
+                >Tipo de Documento</label
+              >
+              <select
+                formControlName="document_type"
+                class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+              >
+                <option value="">Seleccionar</option>
+                <option value="CC">Cédula de Ciudadanía (CC)</option>
+                <option value="CE">Cédula de Extranjería (CE)</option>
+                <option value="TI">Tarjeta de Identidad (TI)</option>
+                <option value="NIT">NIT</option>
+                <option value="PASSPORT">Pasaporte</option>
+                <option value="DNI">DNI</option>
+                <option value="RUC">RUC</option>
+              </select>
+            </div>
+
+            <div>
+              <label class="block mb-2 font-semibold text-gray-700"
+                >Número de Documento</label
+              >
+              <input
+                type="text"
+                formControlName="document_number"
+                class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                placeholder="1234567890"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- Botones -->
+        <div class="flex justify-end gap-4 mt-6 pt-4 border-t">
+          <button
+            type="button"
+            (click)="closeModal()"
+            class="px-6 py-3 bg-gray-500 text-white rounded-lg hover:bg-gray-600 transition"
+          >
+            <i class="fa fa-times mr-2"></i> Cancelar
+          </button>
+          <button
+            type="submit"
+            class="px-6 py-3 bg-brand-yellow text-white rounded-lg hover:bg-yellow-intense transition disabled:opacity-50"
+            [disabled]="customerForm.invalid"
+          >
+            <i
+              [class]="isEditMode ? 'fa fa-save' : 'fa fa-plus'"
+              class="mr-2"
+            ></i>
+            {{ isEditMode ? "Actualizar" : "Agregar" }}
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>

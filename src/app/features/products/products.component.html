@@ -1,0 +1,41 @@
+<main class="container max-w-4xl mx-auto mt-10">
+  <div class="flex gap-5 justify-between items-center mb-5">
+    <div class="flex-1 flex flex-col gap-5">
+      <h3 class="text-3xl font-bold text-neutral-700">Productos</h3>
+      <p class="text-justify">Ofrecemos materiales especializados para la práctica del ajedrez y la enseñanza deportiva,
+        incluyendo tableros, piezas, relojes, libros, guías y recursos didácticos. Nuestro objetivo es facilitar el
+        acceso a herramientas de calidad que fortalezcan la práctica y el aprendizaje tanto en instituciones educativas
+        como en clubes y comunidades.</p>
+    </div>
+    <img class="flex-1 w-64" src="../../../assets/images/products/img-12.jpeg" alt="">
+  </div>
+</main>
+<div class="max-w-7xl mx-auto container">
+  <form action="" class="text-lg flex gap-5 items-center">
+    <label for="">Filtrar</label>
+    <select name="" id=""
+            class="appearance-none outline-none border border-gray-300 rounded-lg px-4 py-2 text-gray-700 focus:border-gray-500 focus:ring-2 focus:ring-gray-500">
+      <option value="" disabled selected>Disponibilidad</option>
+      <option value="disponible">Disponible</option>
+      <option value="no-disponible">No disponible</option>
+    </select>
+  </form>
+  <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-5">
+    <app-card-product [price]="110000" url="../../../assets/images/products/img-1.jpeg"
+                      name="Reloj de Ajedrez"></app-card-product>
+    <app-card-product [price]="20000" url="../../../assets/images/products/img-3.jpeg"
+                      name="Medallas C2"></app-card-product>
+    <app-card-product [price]="8000" url="../../../assets/images/products/img-5.jpeg"
+                      name="Medalla C3 Oro"></app-card-product>
+    <app-card-product [price]="8000" url="../../../assets/images/products/img-6.jpeg"
+                      name="Medalla C3 Plata"></app-card-product>
+    <app-card-product [price]="20000" url="../../../assets/images/products/img-8.jpeg"
+                      name="Medallas C1"></app-card-product>
+    <app-card-product [price]="50000" url="../../../assets/images/products/img-9.jpeg"
+                      name="Tablero de ajedrez"></app-card-product>
+    <app-card-product [price]="19000" url="../../../assets/images/products/img-10.jpeg"
+                      name="Producto 3"></app-card-product>
+    <app-card-product [price]="20000" url="../../../assets/images/products/img-11.jpeg"
+                      name="Set piezas de ajedrez"></app-card-product>
+  </div>
+</div>

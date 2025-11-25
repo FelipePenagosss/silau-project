@@ -73,17 +73,15 @@
     {{ error }}
   </p>
   }
-  <div class="container flex justify-center items-center duration-300">
+<div class="container flex justify-center items-center duration-300">
     <button
       type="submit"
       [disabled]="formLogin.invalid"
-      class="mt-5 p-2 px-10 font-bold text-white text-xl duration-300 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed"
-      [class.bg-brand-blue]="!formLogin.invalid"
-      [class.hover:bg-blue]="!formLogin.invalid"
-      [class.hover:rounded-md]="!formLogin.invalid"
+      class="mt-5 p-2 px-10 font-bold text-white text-xl duration-300 hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed bg-blue-600 hover:bg-blue-700 rounded-md"
       [class.bg-gray-400]="formLogin.invalid"
+      [class.hover:bg-gray-400]="formLogin.invalid"
     >
       Acceder
     </button>
-  </div>
+</div>
 </form>

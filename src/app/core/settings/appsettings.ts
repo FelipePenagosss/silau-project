@@ -1,3 +1,3 @@
 export const appsettings = {
-  apiUrl: 'http://localhost:3000/api/',
+  apiUrl: 'https://fundacion-tazul-api.onrender.com/api/', // ← Cambia por tu URL de Render
 };

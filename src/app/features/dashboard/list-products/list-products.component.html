@@ -26,7 +26,7 @@
       type="text"
       placeholder="Buscar productos..."
       (input)="onSearch($event)"
-      class="border rounded px-4 py-2 w-64 focus:outline-none focus:ring-2 focus:ring-orange-500"
+      class="border rounded px-4 py-2 w-64 focus:outline-none focus:ring-2 focus:ring-blue-500"
     />
     
   </div>
@@ -149,7 +149,7 @@
     #editModal
   >
     <h2 class="text-neutral-700 text-2xl mb-6 font-bold border-b pb-3">
-      <i class="fas fa-edit text-orange-500 mr-2"></i> Editar Producto
+      <i class="fas fa-edit text-blue-500 mr-2"></i> Editar Producto
     </h2>
 
     <form
@@ -165,7 +165,7 @@
         <input
           type="text"
           formControlName="name"
-          class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition"
+          class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
           [class.border-red-500]="
             editForm.get('name')?.invalid && editForm.get('name')?.touched
           "
@@ -198,7 +198,7 @@
               type="number"
               formControlName="price"
               step="0.01"
-              class="w-full p-3 pl-8 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition"
+              class="w-full p-3 pl-8 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
               [class.border-red-500]="
                 editForm.get('price')?.invalid && editForm.get('price')?.touched
               "
@@ -228,7 +228,7 @@
           <input
             type="number"
             formControlName="stock"
-            class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500 transition"
+            class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 transition"
             [class.border-red-500]="
               editForm.get('stock')?.invalid && editForm.get('stock')?.touched
             "
@@ -261,7 +261,7 @@
         </button>
         <button
           type="submit"
-          class="px-6 py-2 bg-orange-500 text-white rounded-lg hover:bg-orange-600 transition disabled:opacity-50 disabled:cursor-not-allowed"
+          class="px-6 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition disabled:opacity-50 disabled:cursor-not-allowed"
           [disabled]="editForm.invalid"
         >
           <i class="fas fa-save mr-2"></i> Guardar Cambios

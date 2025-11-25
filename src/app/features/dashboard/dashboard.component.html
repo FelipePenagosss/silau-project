@@ -1,11 +1,196 @@
 <div class="content-container h-screen">
     <app-side-bar [parentElement]="main"></app-side-bar>
     <main #main class="main-content ml-0 p-8 duration-500 ease-in-out text-justify sm:ml-60 bg-gray-100 min-h-screen">
-        <div *ngIf="showDashboard">
-            <h2>Dashboard</h2>
+        <div *ngIf="showDashboard" class="dashboard-container">
+            <!-- Header -->
+            <div class="mb-8 flex justify-between items-center">
+                <div>
+                    <h1 class="text-3xl font-bold text-gray-800">Dashboard</h1>
+                    <p class="text-gray-600 mt-2">Bienvenido al sistema de gestión Fundación Tazul</p>
+                </div>
+                <button 
+                    (click)="refreshData()"
+                    class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition flex items-center gap-2"
+                >
+                    <i class="fas fa-refresh"></i>
+                    Actualizar
+                </button>
+            </div>
+
+            <!-- Loading State -->
+            <div *ngIf="isLoading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <div *ngFor="let item of [1,2,3,4]" class="bg-white rounded-xl shadow-md p-6 animate-pulse">
+                    <div class="flex items-center justify-between">
+                        <div class="space-y-2">
+                            <div class="h-4 bg-gray-200 rounded w-20"></div>
+                            <div class="h-6 bg-gray-200 rounded w-12"></div>
+                        </div>
+                        <div class="bg-gray-200 p-3 rounded-full w-12 h-12"></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tarjetas de Estadísticas con routerLink CORREGIDO -->
+            <div *ngIf="!isLoading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                <!-- Tarjeta Clientes -->
+                <a 
+                    routerLink="/dashboard/customers"
+                    class="bg-white rounded-xl shadow-md p-6 cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-lg border-l-4 border-blue-500 block"
+                >
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-600 text-sm font-medium">Total Clientes</p>
+                            <h3 class="text-2xl font-bold text-gray-800 mt-2">{{ totalCustomers }}</h3>
+                        </div>
+                        <div class="bg-blue-100 p-3 rounded-full">
+                            <i class="fas fa-users text-blue-600 text-xl"></i>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex items-center text-sm text-green-600">
+                        <i class="fas fa-arrow-up mr-1"></i>
+                        <span>Gestionar clientes</span>
+                    </div>
+                </a>
+
+                <!-- Tarjeta Pedidos -->
+                <a 
+                    routerLink="/dashboard/orders"
+                    class="bg-white rounded-xl shadow-md p-6 cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-lg border-l-4 border-green-500 block"
+                >
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-600 text-sm font-medium">Total Pedidos</p>
+                            <h3 class="text-2xl font-bold text-gray-800 mt-2">{{ totalOrders }}</h3>
+                        </div>
+                        <div class="bg-green-100 p-3 rounded-full">
+                            <i class="fas fa-shopping-cart text-green-600 text-xl"></i>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex items-center text-sm text-green-600">
+                        <i class="fas fa-arrow-up mr-1"></i>
+                        <span>Gestionar pedidos</span>
+                    </div>
+                </a>
+
+                <!-- Tarjeta Productos -->
+                <a 
+                    routerLink="/dashboard/list-products"
+                    class="bg-white rounded-xl shadow-md p-6 cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-lg border-l-4 border-purple-500 block"
+                >
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-600 text-sm font-medium">Total Productos</p>
+                            <h3 class="text-2xl font-bold text-gray-800 mt-2">{{ totalProducts }}</h3>
+                        </div>
+                        <div class="bg-purple-100 p-3 rounded-full">
+                            <i class="fas fa-box text-purple-600 text-xl"></i>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex items-center text-sm text-green-600">
+                        <i class="fas fa-arrow-up mr-1"></i>
+                        <span>Gestionar productos</span>
+                    </div>
+                </a>
+
+                <!-- Tarjeta Ingresos -->
+                <a 
+                    routerLink="/dashboard/orders"
+                    class="bg-white rounded-xl shadow-md p-6 cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-lg border-l-4 border-orange-500 block"
+                >
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <p class="text-gray-600 text-sm font-medium">Ingresos Mensuales</p>
+                            <h3 class="text-2xl font-bold text-gray-800 mt-2">{{ monthlyRevenue }}</h3>
+                        </div>
+                        <div class="bg-orange-100 p-3 rounded-full">
+                            <i class="fas fa-dollar-sign text-orange-600 text-xl"></i>
+                        </div>
+                    </div>
+                    <div class="mt-4 flex items-center text-sm text-green-600">
+                        <i class="fas fa-chart-line mr-1"></i>
+                        <span>Ver reportes</span>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Acciones Rápidas con routerLink CORREGIDO -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Acción Clientes -->
+                <a 
+                    routerLink="/dashboard/customers"
+                    class="bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl shadow-md p-6 cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-lg block"
+                >
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-xl font-bold">Clientes</h3>
+                            <p class="text-blue-100 mt-2">Gestionar lista de clientes</p>
+                        </div>
+                        <i class="fas fa-arrow-right text-xl"></i>
+                    </div>
+                </a>
+
+                <!-- Acción Pedidos -->
+                <a 
+                    routerLink="/dashboard/orders"
+                    class="bg-gradient-to-r from-green-500 to-green-600 text-white rounded-xl shadow-md p-6 cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-lg block"
+                >
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-xl font-bold">Pedidos</h3>
+                            <p class="text-green-100 mt-2">Crear y gestionar pedidos</p>
+                        </div>
+                        <i class="fas fa-arrow-right text-xl"></i>
+                    </div>
+                </a>
+
+                <!-- Acción Productos -->
+                <a 
+                    routerLink="/dashboard/list-products"
+                    class="bg-gradient-to-r from-purple-500 to-purple-600 text-white rounded-xl shadow-md p-6 cursor-pointer transform transition-all duration-300 hover:scale-105 hover:shadow-lg block"
+                >
+                    <div class="flex items-center justify-between">
+                        <div>
+                            <h3 class="text-xl font-bold">Productos</h3>
+                            <p class="text-purple-100 mt-2">Administrar productos</p>
+                        </div>
+                        <i class="fas fa-arrow-right text-xl"></i>
+                    </div>
+                </a>
+            </div>
+
+            <!-- Sección de Actividad Reciente -->
+            <div class="mt-8 bg-white rounded-xl shadow-md p-6">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Actividad Reciente</h2>
+                <div class="space-y-4">
+                    <!-- Ejemplo de actividad -->
+                    <div class="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg">
+                        <div class="flex items-center">
+                            <div class="bg-blue-100 p-2 rounded-full mr-3">
+                                <i class="fas fa-user-plus text-blue-600"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-gray-800">Nuevo cliente registrado</p>
+                                <p class="text-sm text-gray-600">Hace 2 horas</p>
+                            </div>
+                        </div>
+                        <span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">Cliente</span>
+                    </div>
+                    
+                    <div class="flex items-center justify-between p-3 hover:bg-gray-50 rounded-lg">
+                        <div class="flex items-center">
+                            <div class="bg-green-100 p-2 rounded-full mr-3">
+                                <i class="fas fa-shopping-cart text-green-600"></i>
+                            </div>
+                            <div>
+                                <p class="font-medium text-gray-800">Nuevo pedido creado</p>
+                                <p class="text-sm text-gray-600">Hace 5 horas</p>
+                            </div>
+                        </div>
+                        <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">Pedido</span>
+                    </div>
+                </div>
+            </div>
         </div>
         <router-outlet></router-outlet>
     </main>
 </div>
-
-

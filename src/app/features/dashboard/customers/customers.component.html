@@ -19,7 +19,7 @@
 
   <button
     (click)="openModal()"
-    class="btn-add my-5 relative duration-500 overflow-hidden flex gap-2 justify-center items-center font-semibold text-white bg-brand-yellow py-2 px-5 text-lg rounded-md hover:scale-105"
+    class="btn-add my-5 relative duration-500 overflow-hidden flex gap-2 justify-center items-center font-semibold text-white bg-blue-600 py-2 px-5 text-lg rounded-md hover:scale-105"
   >
     <i class="fa fa-plus"></i>
     <span>Nuevo Cliente</span>
@@ -32,7 +32,7 @@
         <select
           (change)="filterByLimit($event)"
           [(ngModel)]="limit"
-          class="w-20 px-2 py-1 border border-gray-300 rounded-md bg-gray-50 text-gray-700 focus:border-orange-500 focus:ring-2 focus:ring-orange-400 outline-none"
+          class="w-20 px-2 py-1 border border-gray-300 rounded-md bg-gray-50 text-gray-700 focus:border-blue-600 focus:ring-2 focus:ring-blue-400 outline-none"
         >
           <option *ngFor="let num of numberList" [value]="num">
             {{ num }}
@@ -45,7 +45,7 @@
         <input
           type="text"
           id="search"
-          class="w-64 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+          class="w-64 px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
           placeholder="Buscar por nombre, email..."
           [(ngModel)]="searchTerm"
           (input)="onSearch()"
@@ -191,7 +191,7 @@
               <input
                 type="text"
                 formControlName="first_name"
-                class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
                 [class.border-red-500]="
                   customerForm.get('first_name')?.invalid &&
                   customerForm.get('first_name')?.touched
@@ -226,7 +226,7 @@
               <input
                 type="text"
                 formControlName="last_name"
-                class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
                 [class.border-red-500]="
                   customerForm.get('last_name')?.invalid &&
                   customerForm.get('last_name')?.touched
@@ -264,7 +264,7 @@
               <input
                 type="email"
                 formControlName="email"
-                class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
                 [class.border-red-500]="
                   customerForm.get('email')?.invalid &&
                   customerForm.get('email')?.touched
@@ -291,7 +291,7 @@
               <input
                 type="text"
                 formControlName="phone"
-                class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
                 placeholder="3001234567"
               />
             </div>
@@ -305,7 +305,7 @@
               >
               <select
                 formControlName="document_type"
-                class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
               >
                 <option value="">Seleccionar</option>
                 <option value="CC">Cédula de Ciudadanía (CC)</option>
@@ -325,7 +325,7 @@
               <input
                 type="text"
                 formControlName="document_number"
-                class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-500"
+                class="w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-600"
                 placeholder="1234567890"
               />
             </div>
@@ -343,7 +343,7 @@
           </button>
           <button
             type="submit"
-            class="px-6 py-3 bg-brand-yellow text-white rounded-lg hover:bg-yellow-intense transition disabled:opacity-50"
+            class="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-600 transition disabled:opacity-50"
             [disabled]="customerForm.invalid"
           >
             <i
